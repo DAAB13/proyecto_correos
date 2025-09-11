@@ -4,8 +4,9 @@ import smtplib
 from email.message import EmailMessage
 import os
 from dotenv import load_dotenv
+from bs4 import BeautifulSoup
 
-### -------- Estación 1: leer y entender los datos ------------
+### -------- ESTACIÓN 1: LEER Y ENTENDER LOS DATOS ------------
 load_dotenv()
 mi_correo = "diego.alvarado@upch.pe"
 mi_contraseña = os.getenv("GMAIL_APP_PASSWORD")
@@ -13,7 +14,8 @@ mi_contraseña = os.getenv("GMAIL_APP_PASSWORD")
 try:
   df = pd.read_excel(config.NOMBRE_ARCHIVO) # pandas lee el archivo xlsx
   #print(df.head())
-### -------- Estación 2: organizar por instructor ------------
+
+### -------- ESTACIÓN 2: ORGANIZAR POR INSTRUCTOR ------------
   """ el método .unique sirve para obtener una lista de correo sin repetir """
   correos_intructores = df['Correo Institucional'].unique() 
   #print("---Instructores a contactar---")
@@ -22,7 +24,7 @@ except FileNotFoundError:
   print(f"no se encontro el archivo:\n{config.NOMBRE_ARCHIVO}\nAsegurate que exista el archivo")
 
 
-### -------- Estación 3: Construir mensaje personalizado ------------
+### -------- ESTACIÓN 3: CONSTRUIR MENSAJE PERSONALIZADO ------------
 for correo in correos_intructores:
   """filtrar datos para un instructor específico"""
   df_instructor = df[df['Correo Institucional'] == correo] 
@@ -34,20 +36,36 @@ for correo in correos_intructores:
   """ Convertimos la tabla a un formato HTML """
   tabla_html = tabla_filtro.to_html(index = False) #le quitamos el índice
 
+  """ editamos el HTML con Beautiful Soup 
+      cargamos el texto HTML en Beautiful Soup para poder editarlo"""
+  soup = BeautifulSoup(tabla_html, 'html.parser')
+
+  tabla = soup.find('table')
+  tabla['style'] = config.ESTILO_TABLA
+
+  for th in soup.find_all('th'):
+    th['style'] = config.ESTILO_CABECERA 
+  
+  for td in soup.find_all('td')
+    td['style'] = config.ESTILO_CELDA
+  
+  tabla_html_bs = str(soup) 
+
+
   """ Creamos el cuerpo completo del correo en HTML """
   cuerpo_correo = f"""
   <html>
   <body>
       <p>Estimado(a) {nombre_instructor}</p>
       <p>Te compartimos sus accesos para el mes de {nombre_mes}:</p> 
-      {tabla_html}
+      {tabla_html_bs}
       <p>Saludos cordiales</p>
   </body>
   </html>
   """
   
 
-  ### -------- Estación 4: Enviar correo ------------
+  ### -------- ESTACIÓN 4: ENVIAR CORREO ------------
   try: 
     msg = EmailMessage()
     msg['Subject'] = config.ASUNTO_DEL_CORREO.format(mes=nombre_mes)

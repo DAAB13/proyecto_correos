@@ -90,3 +90,4 @@ for correo in correos_intructores:
       print(f"Correo enviado exitosamente a {correo}")
   except Exception as e:
     print(f"Error al enviar correo a {correo}: {e}")
+ 

@@ -5,6 +5,7 @@ from email.message import EmailMessage
 import os
 from dotenv import load_dotenv
 from bs4 import BeautifulSoup
+import time
 
 ### -------- ESTACIÓN 1: LEER Y ENTENDER LOS DATOS ------------
 load_dotenv()
@@ -90,4 +91,4 @@ for correo in correos_intructores:
       print(f"Correo enviado exitosamente a {correo}")
   except Exception as e:
     print(f"Error al enviar correo a {correo}: {e}")
- 
+  time.sleep(2)

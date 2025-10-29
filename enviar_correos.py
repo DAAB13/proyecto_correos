@@ -5,10 +5,11 @@ from email.message import EmailMessage
 import os
 from dotenv import load_dotenv
 from bs4 import BeautifulSoup
+import time
 
 ### -------- ESTACIÓN 1: LEER Y ENTENDER LOS DATOS ------------
 load_dotenv()
-mi_correo = "diego.alvarado@upch.pe"
+mi_correo = "monica.carranza@upch.pe"
 mi_contraseña = os.getenv("GMAIL_APP_PASSWORD")
 
 try:
@@ -60,11 +61,19 @@ for correo in correos_intructores:
   <html>
   <body style="font-family: sans-serif;">
       <p>Estimado(a) {nombre_instructor}</p>
-      <p>Te compartimos sus accesos para el mes de {nombre_mes}:</p> 
+      <p>Esperando que se encuentre bien. Le informamos que este mes de {nombre_mes} tiene la siguiente asignación:</p>
+      <p>Le solicitamos, por favor, verificar que sus accesos y enlaces estén en pleno funcionamiento.</p>
       <div style="overflow-x:auto;">  
         {tabla_html_bs} 
       </div>
-      <p>Saludos cordiales</p>
+      <ul>
+        <li>Acceso a Zoom</li>
+        <li>Acceso a Bb</li>
+        <li>Bb (pendiente de inscripción)</li>
+        <li>Bb (grabaciones)</li>
+      </ul>
+      <p>Le agradeceríamos mucho que confirme la recepción de este mensaje y nos indique si todo está funcionando correctamente. Quedamos atentos a cualquier consulta o inconveniente que pudiera surgir.</p>
+      <p>Gracias por su atención y colaboración</p>
       <br>
       {config.FIRMA_HTML}
       <img src="cid:{image_cid}" width="200">
@@ -78,8 +87,8 @@ for correo in correos_intructores:
     msg = EmailMessage()
     msg['Subject'] = config.ASUNTO_DEL_CORREO.format(mes=nombre_mes)
     msg['From'] = mi_correo
-    msg['To'] = "diego.ab130@gmail.com" # cambiar por = correo
-    #msg['Cc'] = config.EMAIL_CC
+    msg['To'] = correo # cambiar por = correo
+    msg['Cc'] = config.EMAIL_CC
     msg.add_alternative(cuerpo_correo, subtype='html') #añadimos el cuerpo HTML
 
     with open('logo_idiomas.png', 'rb') as img_file:
@@ -90,4 +99,4 @@ for correo in correos_intructores:
       print(f"Correo enviado exitosamente a {correo}")
   except Exception as e:
     print(f"Error al enviar correo a {correo}: {e}")
- 
+  time.sleep(2)

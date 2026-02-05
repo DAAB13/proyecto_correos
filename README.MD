@@ -1,5 +1,4 @@
 🏛️ La Arquitectura del Proyecto
-Imagina que tu proyecto es una línea de ensamblaje. Cada estación tiene una tarea específica.
 
   Estación 1: Leer y Entender los Datos. Aquí tomamos tu tabla de accesos (probablemente un archivo de Excel o CSV) y la cargamos en nuestro programa.
 
@@ -12,31 +11,21 @@ Imagina que tu proyecto es una línea de ensamblaje. Cada estación tiene una ta
 
 
 🛠️ Herramientas (Librerías de Python)
-Para cada estación de nuestra línea de ensamblaje, necesitaremos una herramienta especializada (una librería de Python). No te preocupes, ¡son muy populares y fáciles de instalar!
-
+Para cada estación de nuestra línea de ensamblaje, necesitaremos una herramienta especializada (una librería de Python).
 Para la Estación 1 y 2 (Manejo de Datos): Pandas
 ¿Qué es? Es la librería más importante en Python para trabajar con datos en formato de tabla. Piensa en ella como una versión súper poderosa de Excel o Google Sheets, pero controlada por código.
-
-
-
 ¿Por qué la usaremos?
-
 Puede leer archivos de Excel (.xlsx) o CSV (.csv) con una sola línea de código.
-
 Nos permite filtrar y agrupar la información de manera muy sencilla. Por ejemplo, podremos decir: "Pandas, dame todas las filas donde el correo sea 'profesor@upch.pe'".
 
-Tiene una función mágica que convierte tu tabla de datos directamente a formato HTML, ¡perfecto para el correo!
-
 Para la Estación 3 y 4 (Construcción y Envío de Correos): smtplib y email
-¿Qué son? Estas librerías ya vienen incluidas con Python, así que no necesitas instalar nada extra.
-
+¿Qué son? Estas librerías ya vienen incluidas con Python
 smtplib: Es el "cartero" 📮. Se encarga de la comunicación con el servidor de correos de Google (el servidor SMTP) para enviar el mensaje.
-
 email: Es el "constructor de cartas" ✍️. Nos ayuda a armar el correo electrónico con todas sus partes: remitente, destinatario, asunto y, lo más importante, el cuerpo del mensaje en formato HTML.
 
 
 
-🔑 Conceptos Clave que Aprenderás
+🔑 Conceptos Clave
 Estos son los pilares sobre los que construiremos la solución.
 
 DataFrame: Es el concepto central de Pandas. Un DataFrame es, literalmente, la representación de tu tabla de Excel en Python. Podrás seleccionar columnas, filtrar filas y realizar operaciones sobre ella.
